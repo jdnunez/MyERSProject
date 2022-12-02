@@ -11,8 +11,9 @@ public interface TicketServices {
 	public boolean createTicket(Ticket ticket);
 	
 	// Managers can approve or deny
-	public boolean changeStatus(Ticket ticket); // Easiest (just edit body in Postman)
-	public boolean changeStatus(int ticketID, String status); // Better? Difficult?
+	public boolean setStatus(Ticket ticket); // Easiest (just edit body in Postman) CURRENT
+	public boolean setStatus(int tkId); // ??
+	public boolean setStatus(int ticketID, String status); // Better? Difficult?
 	
 	// Users can view previous submissions and filter based on status
 	public List<Ticket> getUserTickets(int userId);

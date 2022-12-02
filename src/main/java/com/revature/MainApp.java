@@ -42,9 +42,10 @@ public class MainApp {
 		
 		// POST - tickets
 		app.post("/tickets/create", TicketController.createTicket);
-		
 		//app.post("/tickets/getWorkerTickets", null)
 		
+		// PUT - tickets
+		app.put("/tickets/setStatus/{id}", TicketController.setStatus); // 
 		
 	}
 

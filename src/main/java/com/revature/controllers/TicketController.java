@@ -76,4 +76,47 @@ public class TicketController {
 		}
 	};
 	*/
+	
+	public static Handler setStatus = ctx -> {
+		// 1. Get ticket info from request body
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		String body = ctx.body();
+		
+		// Convert the body into a Ticket object
+		ObjectMapper om = new ObjectMapper();
+		om.registerModule(new JavaTimeModule());
+		Ticket target = om.readValue(body, Ticket.class);
+		target.setTicketId(id);
+		
+		// 2. Do a service call
+		boolean isUpdated = tkServ.setStatus(target);
+				
+	};
+	
+	/*
+	public static Handler update = ctx -> {
+		//1. get user info from request body
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		String body = ctx.body();
+		
+		//here we will need to convert the body into a User object
+		ObjectMapper om = new ObjectMapper();
+		om.registerModule(new JavaTimeModule());
+		User target = om.readValue(body, User.class);
+		target.setId(id);
+		
+		//2. do service call
+		boolean isUpdated = uServ.updateUser(target);
+		
+		//3. render response
+		if(isUpdated == true) {
+			ctx.html("User ID# "+ id +" : Your user information has been updated successfully.");
+			ctx.status(HttpStatus.OK);
+		}else {
+			ctx.html("Error during update. Try again.");
+			ctx.status(HttpStatus.BAD_REQUEST);
+		}
+		
+	};
+	*/
 }

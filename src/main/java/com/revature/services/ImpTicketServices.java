@@ -37,13 +37,28 @@ public class ImpTicketServices implements TicketServices {
 	}
 
 	@Override
-	public boolean changeStatus(Ticket ticket) {
+	public boolean setStatus(Ticket ticket) {
+		logger.info("ImpTicketService::setStatus() called. Updating ticket ID# "+ ticket.getTicketId() +"...");
+		return ticketDAO.update(ticket);
+	}
+	/*
+	@Override
+	public boolean updateUser(User user) {
+		logger.info("UserService::updateUser() called. Updating user ID# "+ user.getId() +"...");
+		return userDAO.update(user);
+	}
+	*/
+	
+	@Override
+	public boolean setStatus(int tkId) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	
 
 	@Override
-	public boolean changeStatus(int ticketID, String status) {
+	public boolean setStatus(int ticketID, String status) {
 		// TODO Auto-generated method stub
 		return false;
 	}

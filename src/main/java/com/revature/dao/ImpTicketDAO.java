@@ -1,6 +1,7 @@
 package com.revature.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.revature.models.Ticket;
+import com.revature.models.User;
 import com.revature.util.JDBCConnectionUtil;
 
 public class ImpTicketDAO implements TicketDAO {
@@ -114,9 +116,53 @@ public class ImpTicketDAO implements TicketDAO {
 
 	@Override
 	public boolean update(Ticket ticket) {
-		// TODO Auto-generated method stub
+		// Setting the ticket status to Accepted or Denied
+		try {
+			String sql = "UPDATE tickets SET user_id=?, amount=?, description=?, status=? WHERE ticket_id=?";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			pstmt.setInt(1, ticket.getUserId());
+			pstmt.setInt(2, ticket.getAmount());
+			pstmt.setString(3, ticket.getDescription());
+			pstmt.setString(4, ticket.getStatus());
+			pstmt.setInt(5, ticket.getTicketId());
+			
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			};
+			
+		} catch (SQLException ex) {
+			logger.error("ImpTicketDAO - update() " + ex.getMessage());
+		}
 		return false;
 	}
+	/*
+	@Override
+	public boolean update(User user) {
+		// here we are going to update the database for a user
+		try {
+			
+			String sql = "UPDATE users SET username=?, password=?, first_name=?, last_name=?, birthdate=? WHERE id=?";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+			pstmt.setString(1,user.getUsername());
+			pstmt.setString(2, user.getPassword());
+			pstmt.setString(3,user.getFirstName());
+			pstmt.setString(4, user.getLastName());
+			pstmt.setDate(5, Date.valueOf(user.getBirthdate()));
+			pstmt.setInt(6, user.getId());
+			
+			if(pstmt.executeUpdate() > 0) {
+				return true;
+			};
+			
+		} catch (SQLException sqlEx){
+			logger.error("UserDAOImpl - update() " + sqlEx.getMessage());
+		}
+		
+		return false;
+	}
+	*/
 
 	@Override
 	public boolean deleteByTicketId(int ticketId) {

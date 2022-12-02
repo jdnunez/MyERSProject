@@ -41,6 +41,15 @@ public class ImpUserServices implements UserServices {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
+	// Necessary to define here??
+	@Override
+	public User getUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 	@Override
 	public boolean updateUser(User user) {
@@ -53,5 +62,7 @@ public class ImpUserServices implements UserServices {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	
 
 }

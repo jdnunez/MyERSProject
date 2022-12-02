@@ -37,7 +37,7 @@ public class MainApp {
 		app.get("/tickets/getMyTickets/{id}", TicketController.getList); // Get all tickets for logged in user
 		
 		// POST - users
-		app.post("/users/register", UserController.register);
+		app.post("/users/register", UserController.register); // REGISTRATION
 		app.post("/users/login", UserController.login);
 		
 		// POST - tickets

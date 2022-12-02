@@ -24,30 +24,38 @@ public class ImpUserDAO implements UserDAO {
 	
 	@Override
 	public int create(User user) {
-		try {
-			logger.info("ImpUserDAO::create() called. Inserting new user record...");
-			
-			String sql = "INSERT INTO users (username, password, role) VALUES(?, ?, ?)";
-			
-			PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			
-			pstmt.setString(1, user.getUsername());
-			pstmt.setString(2, user.getPassword());
-			pstmt.setString(3, user.getRole());
-			
-			pstmt.executeUpdate();
-			
-			ResultSet rs = pstmt.getGeneratedKeys();
-			
-			rs.next();
-			
-			logger.info("ImpUserDAO::create() - new user id is " + rs.getInt("user_id"));
-			
-			return rs.getInt("user_id");
-			
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		}
+		
+		String uName = user.getUsername();
+		logger.info("ImpUserDAO::create() called. Using username " + uName + "...");
+		
+//		if (this.getByUsername(uName) == null) {
+			try {
+				logger.info("ImpUserDAO::create() called. Inserting new user record...");
+				
+				String sql = "INSERT INTO users (username, password, role) VALUES(?, ?, ?)";
+				
+				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				
+				pstmt.setString(1, user.getUsername());
+				pstmt.setString(2, user.getPassword());
+				pstmt.setString(3, user.getRole());
+				
+				pstmt.executeUpdate();
+				
+				ResultSet rs = pstmt.getGeneratedKeys();
+				
+				rs.next();
+				
+				logger.info("ImpUserDAO::create() - new user id is " + rs.getInt("user_id"));
+				
+				return rs.getInt("user_id");
+				
+			} catch (SQLException ex) {
+				System.out.println(ex.getMessage());
+			}
+//		} else {
+//			logger.error("Username is already taken. Try again.");
+//		}
 		
 		return 0;
 	}
@@ -60,6 +68,8 @@ public class ImpUserDAO implements UserDAO {
 
 	@Override
 	public User getByUsername(String username) {
+		logger.info("ImpUserDAO::getByUserName called. Using username " + username + "...");
+		
 		try {
 			String sql = "SELECT * FROM users WHERE username=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -73,6 +83,7 @@ public class ImpUserDAO implements UserDAO {
 			// have to return an User
 			
 			User user = new User();
+			logger.info("ImpUserDAO::getByUserName - Inside try block...");
 			
 			// this resultset that we get back from our query is what were
 			//iterating through in order to make out our User object

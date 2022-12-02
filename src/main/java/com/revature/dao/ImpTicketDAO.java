@@ -5,12 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.revature.models.Ticket;
-import com.revature.models.User;
 import com.revature.util.JDBCConnectionUtil;
 
 public class ImpTicketDAO implements TicketDAO {
@@ -54,7 +55,60 @@ public class ImpTicketDAO implements TicketDAO {
 
 	@Override
 	public Ticket getByTicketId(int ticketId) {
-		// TODO Auto-generated method stub
+		try {
+			String sql = "SELECT * FROM tickets WHERE ticket_id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, ticketId);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			Ticket target = new Ticket();
+			
+			while(rs.next()) {
+				target.setTicketId(rs.getInt("ticket_id"));
+				target.setUserId(rs.getInt("user_id"));
+				target.setAmount(rs.getInt("amount"));
+				target.setDescription(rs.getString("description"));
+				target.setStatus(rs.getString("status"));
+			}
+			
+			return target;
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
+	
+	@Override
+	public List<Ticket> getByUserId(int userId) {
+		try {
+			String sql = "SELECT * FROM tickets WHERE user_id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userId);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			List<Ticket> tkList = new ArrayList<Ticket>();
+			
+			Ticket target = new Ticket();
+			
+			while(rs.next()) {
+				target.setTicketId(rs.getInt("ticket_id"));
+				target.setUserId(rs.getInt("user_id"));
+				target.setAmount(rs.getInt("amount"));
+				target.setDescription(rs.getString("description"));
+				target.setStatus(rs.getString("status"));
+				tkList.add(target);
+				target = new Ticket();
+				logger.info("Target added.");
+			}
+			
+			return tkList;
+		}catch(SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
 		return null;
 	}
 

@@ -1,7 +1,8 @@
 package com.revature.dao;
 
+import java.util.List;
+
 import com.revature.models.Ticket;
-import com.revature.models.User;
 
 public interface TicketDAO {
 
@@ -10,6 +11,7 @@ public interface TicketDAO {
 	
 	// read
 	Ticket getByTicketId(int ticketId);
+	List<Ticket> getByUserId(int userId);
 	/*
 	 * *** QUESTION ***
 	 * Do we read an array list for getting all tickets for a user? Or implement that in services?

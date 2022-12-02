@@ -50,8 +50,8 @@ public class ImpTicketServices implements TicketServices {
 
 	@Override
 	public List<Ticket> getUserTickets(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("ImpTicketServices::getUserTickets() called. Trying to obtain ticket list from user id# " + userId + "...");
+		return ticketDAO.getByUserId(userId);
 	}
 
 	@Override

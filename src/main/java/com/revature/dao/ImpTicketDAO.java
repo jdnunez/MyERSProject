@@ -113,6 +113,39 @@ public class ImpTicketDAO implements TicketDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Ticket> getByUserId(int userId, String status) {
+		try {
+			String sql = "SELECT * FROM tickets WHERE user_id = ? AND status = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userId);
+			pstmt.setString(2, status);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			List<Ticket> tkList = new ArrayList<Ticket>();
+			
+			Ticket target = new Ticket();
+			
+			while(rs.next()) {
+				target.setTicketId(rs.getInt("ticket_id"));
+				target.setUserId(rs.getInt("user_id"));
+				target.setAmount(rs.getInt("amount"));
+				target.setDescription(rs.getString("description"));
+				target.setStatus(rs.getString("status"));
+				tkList.add(target);
+				target = new Ticket();
+				logger.info("Target added.");
+			}
+			
+			return tkList;
+		}catch(SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+		return null;
+	}
 
 	@Override
 	public boolean update(Ticket ticket) {

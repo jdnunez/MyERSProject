@@ -119,4 +119,23 @@ public class TicketController {
 		
 	};
 	*/
+	
+	public static Handler filterList = ctx -> {
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		String status = ctx.pathParam("status");
+		logger.info("Obtaining ticket list from user id# " + id + "...");
+		logger.info("Filter set to " + status + "...");
+		List<Ticket> tkList = tkServ.getUserTickets(id, status);
+		logger.info("Retrieved " + status + " list: " + tkList);
+		if (tkList != null) {
+			ctx.json(tkList);
+//			for (Ticket next : tkList) {
+//				ctx.json(next);
+//				System.out.println(next);
+//			}
+		} else {
+			ctx.html("Error during ticket list search by that id. Try again.");
+			ctx.status(HttpStatus.NOT_FOUND);
+		}
+	};
 }

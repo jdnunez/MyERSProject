@@ -110,11 +110,37 @@ public class ImpUserDAO implements UserDAO {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 
 	@Override
 	public boolean deleteByUserId(int userId) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+
+			String sql = "DELETE FROM users WHERE id=?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userId);
+
+			// it will return false if the first result is an update count
+			//			TRUE indicates that query returned a ResultSet object 
+			//			FALSE indicate returned an int value or returned nothing.
+			// we want it to return False for our delete method because technically we are
+			// not returning
+			// any result we are just removing it from the db
+
+			if (pstmt.executeUpdate() > 0) {
+				return true;
+			}
+			;
+
+			// we can use Exception even though these methods specifically throw
+			// SQLExceptions
+			// because Exception is the parent class of all Exceptions
+		} catch (Exception ex) {
+			logger.error("UserDAOImpl - delete() exception thrown! Message: " + ex.getMessage());
+		}
+		return true;
 	}
+	
+
 
 }

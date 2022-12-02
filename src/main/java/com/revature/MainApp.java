@@ -35,9 +35,10 @@ public class MainApp {
 		
 		// GET - tickets
 		app.get("/tickets/getMyTickets/{id}", TicketController.getList); // Get all tickets for logged in user
+		app.get("/tickets/getMyTickets/{id}/{status}", TicketController.filterList); // Filter user tickets based on status
 		
 		// POST - users
-		app.post("/users/register", UserController.register); // REGISTRATION
+		app.post("/users/register", UserController.register); 
 		app.post("/users/login", UserController.login);
 		
 		// POST - tickets
@@ -45,7 +46,10 @@ public class MainApp {
 		//app.post("/tickets/getWorkerTickets", null)
 		
 		// PUT - tickets
-		app.put("/tickets/setStatus/{id}", TicketController.setStatus); // 
+		app.put("/tickets/setStatus/{id}", TicketController.setStatus);
+		
+		// DELETE - users
+		app.delete("/users/delete/{id}", UserController.deleteUser);
 		
 	}
 

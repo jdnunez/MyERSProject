@@ -12,6 +12,7 @@ public interface TicketDAO {
 	// read
 	Ticket getByTicketId(int ticketId);
 	List<Ticket> getByUserId(int userId);
+	List<Ticket> getByUserId(int userId, String status);                
 	/*
 	 * *** QUESTION ***
 	 * Do we read an array list for getting all tickets for a user? Or implement that in services?

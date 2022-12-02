@@ -72,7 +72,7 @@ public class ImpTicketServices implements TicketServices {
 	@Override
 	public List<Ticket> getUserTickets(int userId, String tkStatus) {
 		// TODO Auto-generated method stub
-		return null;
+		return ticketDAO.getByUserId(userId, tkStatus);
 	}
 
 	@Override

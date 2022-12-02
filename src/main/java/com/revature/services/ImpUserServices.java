@@ -60,7 +60,7 @@ public class ImpUserServices implements UserServices {
 	@Override
 	public boolean deleteUser(int userId) {
 		// TODO Auto-generated method stub
-		return false;
+		return userDAO.deleteByUserId(userId);
 	}
 
 	

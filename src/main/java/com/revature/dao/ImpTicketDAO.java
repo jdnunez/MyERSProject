@@ -27,12 +27,12 @@ public class ImpTicketDAO implements TicketDAO {
 	public int create(Ticket ticket) {
 		try {
 			// 1. Prepare our SQL statement
-			String sql = "INSERT INTO tickets (user_id, amount, desc, status) VALUES (?, ?, ?, ?)";
+			String sql = "INSERT INTO tickets (user_id, amount, description, status) VALUES (?, ?, ?, ?)";
 			PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
 			pstmt.setInt(1, ticket.getUserId());
-			pstmt.setFloat(2, ticket.getAmount());
-			pstmt.setString(3, ticket.getDesc());
+			pstmt.setInt(2, ticket.getAmount());
+			pstmt.setString(3, ticket.getDescription());
 			pstmt.setString(4, ticket.getStatus());
 			
 			pstmt.executeUpdate();

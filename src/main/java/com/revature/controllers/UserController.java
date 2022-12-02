@@ -50,11 +50,11 @@ public class UserController {
 		LoginTemplate target = om.readValue(body, LoginTemplate.class);
 		
 		//2. do service call
-		boolean isAuthenicated = uServ.login(target.getUsername(), target.getPassword());
+		boolean isAuthenticated = uServ.login(target.getUsername(), target.getPassword());
 		
 		//3. render response
 		// Checking to see if user exists in the system
-		if (isAuthenicated == true) {
+		if (isAuthenticated == true) {
 			// if true - creating a HTTP cookie for our logged in user and sending that cookie in the HTTP response
 			ctx.html("Successful login. Welcome " + target.getUsername() + "!");
 			

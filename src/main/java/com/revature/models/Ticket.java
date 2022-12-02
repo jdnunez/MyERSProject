@@ -6,82 +6,74 @@ public class Ticket {
 
 	private int ticketId; // ticket ticketId
 	private int userId; // user ticketId
-	private float amount;
-	private String desc;
+	private int amount;
+	private String description;
 	private String status;
 	
-	// no-args
+	// No-args
 	public Ticket() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	// all-args
-	public Ticket(int ticketId, int userId, float amount, String desc, String status) {
+	
+	// All-args
+	public Ticket(int ticketId, int userId, int amount, String description, String status) {
 		super();
 		this.ticketId = ticketId;
 		this.userId = userId;
 		this.amount = amount;
-		this.desc = desc;
-		this.status = status;
-	}
-	
-	// creation
-	public Ticket(int userId, float amount, String desc, String status) {
-		super();
-		this.userId = userId;
-		this.amount = amount;
-		this.desc = desc;
+		this.description = description;
 		this.status = status;
 	}
 
-	// getters/setters
+	// Creation
+	public Ticket(int userId, int amount, String description, String status) {
+		super();
+		this.userId = userId;
+		this.amount = amount;
+		this.description = description;
+		this.status = status;
+	}
+
+	// Getters/Setters
 	public int getTicketId() {
 		return ticketId;
 	}
-
 	public void setTicketId(int ticketId) {
 		this.ticketId = ticketId;
 	}
-
 	public int getUserId() {
 		return userId;
 	}
-
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-
-	public float getAmount() {
+	public int getAmount() {
 		return amount;
 	}
-
-	public void setAmount(float amount) {
+	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-
-	public String getDesc() {
-		return desc;
+	public String getDescription() {
+		return description;
 	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	// hashCode
+	// Hashcode
 	@Override
 	public int hashCode() {
-		return Objects.hash(amount, desc, ticketId, status, userId);
+		return Objects.hash(amount, description, status, ticketId, userId);
 	}
 
+	// Equals
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -91,16 +83,18 @@ public class Ticket {
 		if (getClass() != obj.getClass())
 			return false;
 		Ticket other = (Ticket) obj;
-		return Float.floatToIntBits(amount) == Float.floatToIntBits(other.amount) && Objects.equals(desc, other.desc)
-				&& ticketId == other.ticketId && Objects.equals(status, other.status) && userId == other.userId;
+		return amount == other.amount && Objects.equals(description, other.description)
+				&& Objects.equals(status, other.status) && ticketId == other.ticketId && userId == other.userId;
 	}
 	
-	// toString
+	
+	// To String
 	@Override
 	public String toString() {
-		return "Ticket [ticketId=" + ticketId + ", userId=" + userId + ", amount=" + amount + ", desc=" + desc + ", status=" + status
-				+ "]";
+		return "Ticket [ticketId=" + ticketId + ", userId=" + userId + ", amount=" + amount + ", description="
+				+ description + ", status=" + status + "]";
 	}
+	
 	
 	
 	
